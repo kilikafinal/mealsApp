@@ -9,7 +9,10 @@ class MealDetailsScreen extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme
+              .of(context)
+              .textTheme
+              .headline6,
         ));
   }
 
@@ -29,7 +32,10 @@ class MealDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final meal = ModalRoute.of(context).settings.arguments as Meal;
+    final meal = ModalRoute
+        .of(context)
+        .settings
+        .arguments as Meal;
     return Scaffold(
       appBar: AppBar(
         title: Text("${meal.title}"),
@@ -48,35 +54,43 @@ class MealDetailsScreen extends StatelessWidget {
             buildSectionTitle(context, "Ingredients"),
             buildContainer(
               ListView.builder(
-                itemBuilder: (ctx, index) => Card(
-                  color: Theme.of(context).accentColor,
-                  child: Padding(
-                    padding:
+                itemBuilder: (ctx, index) =>
+                    Card(
+                      color: Theme
+                          .of(context)
+                          .accentColor,
+                      child: Padding(
+                        padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: Text(meal.ingredients[index]),
-                  ),
-                ),
+                        child: Text(meal.ingredients[index]),
+                      ),
+                    ),
                 itemCount: meal.ingredients.length,
               ),
             ),
             buildSectionTitle(context, "Steps"),
             buildContainer(ListView.builder(
-              itemBuilder: (ctx, index) => Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: CircleAvatar(
-                      child: Text("#${index + 1}"),
-                    ),
-                    title: Text(meal.steps[index]),
+              itemBuilder: (ctx, index) =>
+                  Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: CircleAvatar(
+                          child: Text("#${index + 1}"),
+                        ),
+                        title: Text(meal.steps[index]),
+                      ),
+                      Divider(),
+                    ],
                   ),
-                  Divider(),
-                ],
-              ),
               itemCount: meal.steps.length,
-            ))
+            ),)
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete), onPressed: () {
+        Navigator.of(context).pop(meal.id);
+      },),
     );
   }
 }

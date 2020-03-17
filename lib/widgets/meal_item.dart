@@ -4,15 +4,18 @@ import 'package:meals_app/screens/meal_details_screen.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
+  Function removeItem;
 
-  MealItem(this.meal);
+  MealItem(this.meal, this.removeItem);
 
   void selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailsScreen.routeName, arguments: meal);
+    Navigator.of(context)
+        .pushNamed(MealDetailsScreen.routeName, arguments: meal)
+        .then((value) => removeItem(value));
   }
 
-  String affordabilityText(Affordability affordability){
-    switch(affordability){
+  String affordabilityText(Affordability affordability) {
+    switch (affordability) {
       case Affordability.Affordable:
         return "Affordable";
       case Affordability.Luxury:
@@ -25,9 +28,8 @@ class MealItem extends StatelessWidget {
     }
   }
 
-
-  String complexityText(Complexity complexity){
-    switch(complexity){
+  String complexityText(Complexity complexity) {
+    switch (complexity) {
       case Complexity.Simple:
         return "Simple";
       case Complexity.Hard:
@@ -39,7 +41,7 @@ class MealItem extends StatelessWidget {
         break;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
